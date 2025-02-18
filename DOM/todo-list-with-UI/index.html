@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo-List</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .main{
+            background: linear-gradient(135deg, #153677, #4e085f);
+            height: 100vh;
+            width: 100%;
+            padding: 10px;
+            min-height:fit-content ;
+        }
+        .todo-app{
+           width: 100%;
+            max-width: 560px;
+            background: #fff;
+            margin: 100px auto 20px;
+            padding: 40px 30px 70px;
+            border-radius: 10px;
+        }
+        .todo-h2{
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .input{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #edeef0;
+            border-radius: 30px;
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        #input-box{
+            flex: 1;
+            border: none;
+            outline: none;
+            background: transparent;
+            padding: 10px;
+            font-size: 15px;
+        }
+        #add-btn{
+            border: none;
+            outline: none;
+            padding: 16px 50px;
+            background: #4e085f;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 40px;
+            cursor: pointer;
+        }
+
+
+        .list-item{
+            list-style: none;
+            font-size: 19px;
+            padding: 12px 8px 12px 20px; 
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .list-item::before{
+            content: '';
+            color: #4e085f;
+            margin-right: 15px;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #4e085f;
+            /* background-color: #4e085f; */
+            border-radius: 50%;
+            display: inline-block;
+        }
+        .checked{
+            text-decoration: line-through;
+            color: #555;
+        }
+        .checked::before{
+            background-color: #4e085f;
+        }
+        .cross{
+            text-align:right;
+            color: #4e085f; 
+            font-size: 30px; 
+            font-weight: bold; 
+            position: absolute;
+            right: 0;
+            text-align: center;
+            top: 5px;
+            height: 40px;
+            width: 40px;           
+        }
+        .cross:hover{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="todo-app">
+            <h2 class="todo-h2">To-Do List</h2>
+        <div class="input">
+            <input type="text" id="input-box" placeholder="Enter your task">
+            <button id="add-btn" onclick="addTask()">Add</button>
+        </div>
+        <ul id="list-container">
+            <!-- <li class="list-item checked">task 1</li>
+            <li class="list-item">task 2</li>
+            <li class="list-item">task 3</li> -->
+
+            
+        </ul>
+        
+        </div>
+    </div>
+
+
+    <script>
+       const inputBox = document.getElementById("input-box");
+       const listContainer = document.getElementById("list-container");
+        function addTask(){
+            if (inputBox.value == ""){
+                alert("Please enter your task");
+            }
+            else{
+                let li =document.createElement("li");
+                li.innerHTML = inputBox.value;
+                li.classList.add("list-item");
+                listContainer.appendChild(li);
+                let span = document.createElement("span");
+                span.innerHTML = "&times;";
+                span.classList.add("cross");
+                li.appendChild(span);
+            }
+
+            inputBox.value="";
+        }
+
+        listContainer.addEventListener("click", (e)=>{
+            if(e.target.tagName === "LI"){
+                e.target.classList.toggle("checked");
+            }
+            if(e.target.tagName === "SPAN"){
+                e.target.parentElement.remove();
+            }
+        });
+
+    </script>
+</body>
+</html>
